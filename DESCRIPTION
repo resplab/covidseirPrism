@@ -1,6 +1,6 @@
 Package: covidseirPrism
 Title: Peer Models Network PRISM Bridge for the covidseir
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("Amin", "Adibi", email = "adibi@alumni.ubc.ca", role = c("aut", "cph")),
     person("Mohsen", "Sadatsafavi", email = "mohsen.sadatsafavi@ubc.ca", role = c("aut", "cre")))
@@ -11,6 +11,8 @@ LazyData: true
 Imports:
     jsonlite,
     rredis,
+    magrittr,
+    ggplot2 (>= 3.3.0),
     covidseir (>= 0.0.0.9001)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0

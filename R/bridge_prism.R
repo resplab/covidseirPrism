@@ -22,17 +22,33 @@ model_run<-function(model_input = NULL)
   #                               CFRelatedDiabetes      =model_input$CFRelatedDiabetes,
   #                               ageAtDiagnosis         =model_input$ageAtDiagnosis        )
 
-  m <- fit_seir(
+  model <- fit_seir(
     daily_cases = model_input$daily_cases,
-    iter = model_input$iter,
+    iter = model_input$fit_iter,
     chains = model_input$chains,
     samp_frac_fixed = model_input$samp_frac_fixed
   )
-  # print(m)
-  # names(m)
-  # names(m$post)
 
-  return(as.list(m$post))
+
+
+  projection <- project_seir(model,
+                     forecast_days = model_input$forecast_days,
+                     f_fixed_start = model_input$f_fixed_start,
+                     f_fixed = model_input$f_fixed,
+                     iter = model_input$forecast_iter
+   )
+
+  obs_dat <- data.frame(day = seq_along(model_input$daily_cases), value = model_input$daily_cases)
+
+  tidy_seir(projection)
+
+  plot <- tidy_seir(projection) %>% plot_projection(obs_dat = obs_dat)
+
+  # results <- as.list(model$post, plot)
+  print(plot)
+  ggsave("./test.png", plot)
+  results <- list(model$post)
+  return(results)
 }
 
 
@@ -62,9 +78,14 @@ get_default_input <- function() {
     26, 37, 25, 45, 34, 40, 35)
   model_input <- list (
     daily_cases = cases,
-    iter = 100,
+    fit_iter = 100,
     chains = 1,
-    samp_frac_fixed = c(rep(0.1, 13), rep(0.2, length(cases) - 13))
+    samp_frac_fixed = c(rep(0.1, 13), rep(0.2, length(cases) - 13)),
+    #forcast requirements
+    forecast_days = 100,
+    f_fixed_start = 53,
+    f_fixed = c(rep(0.7, 60), rep(0.2, 30)),
+    forecast_iter = 1:25
   )
 
   return((flatten_list(model_input)))

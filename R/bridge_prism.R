@@ -29,8 +29,6 @@ model_run<-function(model_input = NULL)
     samp_frac_fixed = model_input$samp_frac_fixed
   )
 
-
-
   projection <- project_seir(model,
                      forecast_days = model_input$forecast_days,
                      f_fixed_start = model_input$f_fixed_start,
@@ -40,7 +38,6 @@ model_run<-function(model_input = NULL)
 
   obs_dat <- data.frame(day = seq_along(model_input$daily_cases), value = model_input$daily_cases)
 
-  tidy_seir(projection)
 
   plot <- tidy_seir(projection) %>% plot_projection(obs_dat = obs_dat)
 

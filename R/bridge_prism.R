@@ -10,7 +10,7 @@ model_run<-function(model_input = NULL)
     obs_model              = model_input$obs_model             ,
     forecast_days          = model_input$fit_forecast_days     ,
     time_increment         = model_input$time_increment        ,
-    samp_frac_fixed        = model_input_default$samp_frac_fixed       , #TODO Correct
+    samp_frac_fixed        = model_input$samp_frac_fixed       , #TODO Correct
     samp_frac_type         = model_input$samp_frac_type        ,
     samp_frac_seg          = model_input_default$samp_frac_seg         ,
     #TODO weird error caused by f_seq
@@ -30,16 +30,15 @@ model_run<-function(model_input = NULL)
      chains                 = model_input$chains                ,
      iter                   = model_input$fit_iter              ,
      N_pop                  = model_input$N_pop                 ,
-     pars                   = model_input_default$pars                  , #TODO Correct
+     pars                   = c(D = 5, k1 = 1/5, k2 = 1, q = 0.05, ud = 0.1, ur = 0.02, f0 = 1)    , #TODO Correct
      i0_prior               = model_input$i0_prior              ,
-     state_0                = model_input_default$state_0               , #TODO Correct
+     state_0                = c(E1_frac = 0.4, E2_frac = 0.1, I_frac = 0.5, Q_num = 0, R_num = 0,
+                                E1d_frac = 0.4, E2d_frac = 0.1, Id_frac = 0.5, Qd_num = 0, Rd_num = 0), #TODO Correct
      save_state_predictions = model_input$save_state_predictions,
      delay_scale            = model_input$delay_scale           ,
      delay_shape            = model_input$delay_shape           ,
      ode_control            = model_input$ode_control
   )
-
-  model
 
   obs_dat <- data.frame(day = seq_along(model_input$daily_cases), value = model_input$daily_cases)
 
@@ -53,8 +52,6 @@ model_run<-function(model_input = NULL)
                               imported_window = model_input$imported_window
   )
 
-  projection
-
   plot <- tidy_seir(projection) %>% plot_projection(obs_dat = obs_dat)
   print(plot)
 
@@ -66,7 +63,8 @@ model_run<-function(model_input = NULL)
 
   print(plot2)
 
-  results <- list(model$post)
+ # results <- list(model$post)
+  results <- list(model=model$post, projected_day=projection$day,  projected_data_type=projection$data_type, projected_mu=projection$mu, projected_y_rep=projection$y_rep)
   return(results)
 }
 

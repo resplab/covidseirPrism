@@ -1,7 +1,7 @@
 #' @import jsonlite
 #' @import rredis
 #' @import magrittr
-#' @importFrom ggplot2 ggsave
+#' @import ggplot2
 #' @import covidseir
 # import main model package here. For example:
 # #' @import bode

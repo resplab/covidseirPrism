@@ -3,7 +3,7 @@
 export(gateway)
 export(prism_model_run)
 import(covidseir)
+import(ggplot2)
 import(jsonlite)
 import(magrittr)
 import(rredis)
-importFrom(ggplot2,ggsave)

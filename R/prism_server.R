@@ -58,7 +58,7 @@ prism_model_run<-function(model_input=NULL)
 }
 
 
-#In API-based use without session ids this might seem a bit reduntant (it will not be required). But still good to check model availability
+#In API-based use without session ids this might seem a bit redundant (it will not be required). But still good to check model availability
 connect_to_model<-function(api_key="")
 {
   model_name<-environmentName(environment(connect_to_model))

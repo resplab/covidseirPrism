@@ -1,7 +1,7 @@
 model_run<-function(model_input = NULL)
 {
 
-  model_input <- get_default_input() #TODO REMOVE!
+  model_input_default <- get_default_input() #TODO REMOVE!
 
   input<-model_input
 
@@ -10,9 +10,9 @@ model_run<-function(model_input = NULL)
     obs_model              = model_input$obs_model             ,
     forecast_days          = model_input$fit_forecast_days     ,
     time_increment         = model_input$time_increment        ,
-    samp_frac_fixed        = model_input$samp_frac_fixed       ,
+    samp_frac_fixed        = model_input_default$samp_frac_fixed       , #TODO Correct
     samp_frac_type         = model_input$samp_frac_type        ,
-    samp_frac_seg          = model_input$samp_frac_seg         ,
+    samp_frac_seg          = model_input_default$samp_frac_seg         ,
     #TODO weird error caused by f_seq
 #    f_seg                  = model_input$f_seg                 ,
      days_back              = model_input$days_back             ,
@@ -30,9 +30,9 @@ model_run<-function(model_input = NULL)
      chains                 = model_input$chains                ,
      iter                   = model_input$fit_iter              ,
      N_pop                  = model_input$N_pop                 ,
-     pars                   = model_input$pars                  ,
+     pars                   = model_input_default$pars                  , #TODO Correct
      i0_prior               = model_input$i0_prior              ,
-     state_0                = model_input$state_0               ,
+     state_0                = model_input_default$state_0               , #TODO Correct
      save_state_predictions = model_input$save_state_predictions,
      delay_scale            = model_input$delay_scale           ,
      delay_shape            = model_input$delay_shape           ,

@@ -1,18 +1,16 @@
 model_run<-function(model_input = NULL)
 {
 
-  model_input_default <- get_default_input() #TODO REMOVE!
-
-  input<-model_input
+  model_input_default <- get_default_input()
 
   model <- fit_seir(
     daily_cases            = model_input$daily_cases           ,
     obs_model              = model_input$obs_model             ,
     forecast_days          = model_input$fit_forecast_days     ,
     time_increment         = model_input$time_increment        ,
-    samp_frac_fixed        = model_input$samp_frac_fixed       , #TODO Correct
+    samp_frac_fixed        = model_input$samp_frac_fixed       ,
     samp_frac_type         = model_input$samp_frac_type        ,
-    samp_frac_seg          = model_input_default$samp_frac_seg         ,
+    samp_frac_seg          = model_input_default$samp_frac_seg , #TODO
     #TODO weird error caused by f_seq
 #    f_seg                  = model_input$f_seg                 ,
      days_back              = model_input$days_back             ,
@@ -30,10 +28,9 @@ model_run<-function(model_input = NULL)
      chains                 = model_input$chains                ,
      iter                   = model_input$fit_iter              ,
      N_pop                  = model_input$N_pop                 ,
-     pars                   = c(D = 5, k1 = 1/5, k2 = 1, q = 0.05, ud = 0.1, ur = 0.02, f0 = 1)    , #TODO Correct
+     pars                   = unlist(model_input$pars)          ,
      i0_prior               = model_input$i0_prior              ,
-     state_0                = c(E1_frac = 0.4, E2_frac = 0.1, I_frac = 0.5, Q_num = 0, R_num = 0,
-                                E1d_frac = 0.4, E2d_frac = 0.1, Id_frac = 0.5, Qd_num = 0, Rd_num = 0), #TODO Correct
+     state_0                = unlist(model_input$state_0)       ,
      save_state_predictions = model_input$save_state_predictions,
      delay_scale            = model_input$delay_scale           ,
      delay_shape            = model_input$delay_shape           ,
@@ -99,9 +96,9 @@ get_default_input <- function() {
     chains                 = 1,
     fit_iter               = 100,
     N_pop                  = 5100000,
-    pars                   = c(D = 5, k1 = 1/5, k2 = 1, q = 0.05, ud = 0.1, ur = 0.02, f0 = 1),
+    pars                   = list(D = 5, k1 = 1/5, k2 = 1, q = 0.05, ud = 0.1, ur = 0.02, f0 = 1),
     i0_prior               = c(log(8), 1),
-    state_0                = c(E1_frac = 0.4, E2_frac = 0.1, I_frac = 0.5, Q_num = 0, R_num = 0,
+    state_0                = list(E1_frac = 0.4, E2_frac = 0.1, I_frac = 0.5, Q_num = 0, R_num = 0,
                                E1d_frac = 0.4, E2d_frac = 0.1, Id_frac = 0.5, Qd_num = 0, Rd_num = 0),
     save_state_predictions = FALSE,
     delay_scale            = 9.85,

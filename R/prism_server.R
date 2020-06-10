@@ -1,9 +1,10 @@
 ## v0.3.0 2019-05-27
 
-get_my_name<-function()
+get_model_name<-function()
 {
-  x<-getPackageName()
-  return(x)
+  bridgePackage<-getPackageName()
+  model_name <- str_remove(bridgePackage, "Prism")
+  return(model_name)
 }
 
 
@@ -16,9 +17,9 @@ thisSession$MODE_REQUIRE_SESSION_DATA=FALSE;
 thisSession$LONG_RUN_STATUS_READY<-0
 thisSession$LONG_RUN_STATUS_DONE<-1
 thisSession$LONG_RUN_STATUS_ERROR<- -1
-
-thisSession$MODEL_DESCRIPTION<-paste0("This is ",get_my_name()," - PRISM enabled!")
-thisSession$MODEL_VERSION<-paste(packageVersion(get_my_name()))
+thisSession$MODEL_DESCRIPTION<-paste0("You are connected to ",get_model_name())
+thisSession$MODEL_TITLE <-  packageDescription(get_model_name())$Title
+thisSession$MODEL_VERSION<-paste(packageVersion(get_model_name()))
 
 
 #FOR ONE SHOT JSON CALL!
@@ -62,7 +63,7 @@ prism_model_run<-function(model_input=NULL)
 connect_to_model<-function(api_key="")
 {
   model_name<-environmentName(environment(connect_to_model))
-  out<-list(error_code=0,session_id="",version="",description="")
+  out<-list(error_code=0, description="", version="", title="")
 
 
   if(thisSession$MODE_REQUIRE_SESSION)
@@ -73,6 +74,7 @@ connect_to_model<-function(api_key="")
 
   out$version<-thisSession$MODEL_VERSION
   out$description<-thisSession$MODEL_DESCRIPTION
+  out$title <- thisSession$MODEL_TITLE
   return(out)
 }
 

@@ -12,6 +12,7 @@ Imports:
     jsonlite,
     rredis,
     magrittr,
+    stringr,
     ggplot2 (>= 3.3.0),
     covidseir (>= 0.0.0.9006)
 Roxygen: list(markdown = TRUE)

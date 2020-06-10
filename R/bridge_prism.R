@@ -11,30 +11,28 @@ model_run<-function(model_input = NULL)
     samp_frac_fixed        = model_input$samp_frac_fixed       ,
     samp_frac_type         = model_input$samp_frac_type        ,
     samp_frac_seg          = unlist(model_input$samp_frac_seg) ,
-    #TODO weird error caused by f_seq
-#    f_seg                  = model_input$f_seg                 ,
-     days_back              = model_input$days_back             ,
-
-     R0_prior               = model_input$R0_prior              ,
-     phi_prior              = model_input$phi_prior             ,
-     f_prior                = model_input$f_prior               ,
-     e_prior                = model_input$e_prior               ,
-     samp_frac_prior        = model_input$samp_frac_prior       ,
-     start_decline_prior    = model_input$start_decline_prior   ,
-     end_decline_prior      = model_input$end_decline_prior     ,
-     f_ramp_rate            = model_input$f_ramp_rate           ,
-     rw_sigma               = model_input$rw_sigma              ,
-     seed                   = model_input$seed                  ,
-     chains                 = model_input$chains                ,
-     iter                   = model_input$fit_iter              ,
-     N_pop                  = model_input$N_pop                 ,
-     pars                   = unlist(model_input$pars)          ,
-     i0_prior               = model_input$i0_prior              ,
-     state_0                = unlist(model_input$state_0)       ,
-     save_state_predictions = model_input$save_state_predictions,
-     delay_scale            = model_input$delay_scale           ,
-     delay_shape            = model_input$delay_shape           ,
-     ode_control            = model_input$ode_control
+    f_seg                  = model_input$f_seg                 ,
+    days_back              = model_input$days_back             ,
+    R0_prior               = model_input$R0_prior              ,
+    phi_prior              = model_input$phi_prior             ,
+    f_prior                = model_input$f_prior               ,
+    e_prior                = model_input$e_prior               ,
+    samp_frac_prior        = model_input$samp_frac_prior       ,
+    start_decline_prior    = model_input$start_decline_prior   ,
+    end_decline_prior      = model_input$end_decline_prior     ,
+    f_ramp_rate            = model_input$f_ramp_rate           ,
+    rw_sigma               = model_input$rw_sigma              ,
+    seed                   = model_input$seed                  ,
+    chains                 = model_input$chains                ,
+    iter                   = model_input$fit_iter              ,
+    N_pop                  = model_input$N_pop                 ,
+    pars                   = unlist(model_input$pars)          ,
+    i0_prior               = model_input$i0_prior              ,
+    state_0                = unlist(model_input$state_0)       ,
+    save_state_predictions = model_input$save_state_predictions,
+    delay_scale            = model_input$delay_scale           ,
+    delay_shape            = model_input$delay_shape           ,
+    ode_control            = model_input$ode_control
   )
 
   obs_dat <- data.frame(day = seq_along(model_input$daily_cases), value = model_input$daily_cases)
@@ -60,7 +58,6 @@ model_run<-function(model_input = NULL)
 
   print(plot2)
 
- # results <- list(model$post)
   results <- list(model=model$post, projected_day=projection$day,  projected_data_type=projection$data_type, projected_mu=projection$mu, projected_y_rep=projection$y_rep)
   return(results)
 }
@@ -115,7 +112,7 @@ get_default_input <- function() {
     imported_window          = 1
   )
 
- # model_input$f_seg  <- c(0, rep(1, length(model_input$daily_cases) + model_input$forecast_days - 1))
+  model_input$f_seg  <- c(0, rep(1, length(model_input$daily_cases) + model_input$project_forecast_days - 1))
 
   return(model_input)
 }

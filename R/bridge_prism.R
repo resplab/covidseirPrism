@@ -10,7 +10,7 @@ model_run<-function(model_input = NULL)
     time_increment         = model_input$time_increment        ,
     samp_frac_fixed        = model_input$samp_frac_fixed       ,
     samp_frac_type         = model_input$samp_frac_type        ,
-    samp_frac_seg          = model_input_default$samp_frac_seg , #TODO
+    samp_frac_seg          = unlist(model_input$samp_frac_seg) ,
     #TODO weird error caused by f_seq
 #    f_seg                  = model_input$f_seg                 ,
      days_back              = model_input$days_back             ,

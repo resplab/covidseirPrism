@@ -46,4 +46,4 @@ jobs:
           host: 'https://captain.cp.prism-ubc.linaralabs.com'
           password: '${{ secrets.CAPROVER_PASSWORD }}'
           app: 'model-covidseir'
-          image: 'ghcr.io/resplab/covidseirprismprism:latest'
+          image: 'ghcr.io/resplab/covidseirprism:latest'

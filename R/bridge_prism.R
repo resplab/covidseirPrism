@@ -1,7 +1,7 @@
 model_run<-function(model_input = NULL)
 {
 
-  model_input_default <- get_default_input()
+  model_input_default <- prism_get_default_input()
 
   model <- fit_seir(
     daily_cases            = model_input$daily_cases           ,
@@ -63,7 +63,7 @@ model_run<-function(model_input = NULL)
 }
 
 
-get_default_input <- function() {
+prism_get_default_input <- function() {
 
   cases <- c(
     0, 0, 1, 3, 1, 8, 0, 6, 5, 0, 7, 7, 18, 9, 22, 38, 53, 45, 40,

@@ -1,7 +1,8 @@
 model_run<-function(model_input = NULL)
 {
 
-  model_input_default <- prism_get_default_input()
+  model_input_default <- unflatten_list(prism_get_default_input())
+
 
   model <- fit_seir(
     daily_cases            = model_input$daily_cases           ,
@@ -114,8 +115,10 @@ prism_get_default_input <- function() {
 
   model_input$f_seg  <- c(0, rep(1, length(model_input$daily_cases) + model_input$project_forecast_days - 1))
 
-  return(model_input)
+  return(flatten_list(model_input))
 }
+
+
 
 
 #Gets a hierarchical named list and flattens it; updating names accordingly
@@ -146,6 +149,10 @@ flatten_list<-function(lst,prefix="")
   }
   return(out)
 }
+
+
+
+
 
 
 

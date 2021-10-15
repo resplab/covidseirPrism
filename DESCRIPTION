@@ -1,6 +1,6 @@
 Package: covidseirPrism
 Title: Peer Models Network PRISM Bridge for the covidseir
-Version: 0.2.3
+Version: 0.2.4
 Authors@R: c(
     person("Amin", "Adibi", email = "adibi@alumni.ubc.ca", role = c("aut", "cph")),
     person("Mohsen", "Sadatsafavi", email = "mohsen.sadatsafavi@ubc.ca", role = c("aut", "cre")))

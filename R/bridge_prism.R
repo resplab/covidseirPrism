@@ -1,7 +1,7 @@
 model_run<-function(model_input = NULL)
 {
 
-  model_input_default <- unflatten_list(prism_get_default_input())
+  model_input <- unflatten_list(model_input)
 
 
   model <- fit_seir(
